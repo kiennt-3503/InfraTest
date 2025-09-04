@@ -4,11 +4,6 @@ on:
   push:
     branches: [ develop ]
   workflow_dispatch:
-    inputs:
-      image_tag:
-        description: 'Docker image tag to deploy'
-        required: true
-        default: 'latest'
 
 permissions:
   id-token: write
@@ -16,7 +11,7 @@ permissions:
 
 env:
   AWS_REGION: ap-northeast-1
-  ROLE_ARN: arn:aws:iam::111227927661:role/TerraformDeployRole
+  ROLE_ARN: arn:aws:iam::412381775063:role/TerraformDeployRole
   TF_WORKING_DIR: infra/terraform/environments/dev
 
 jobs:
@@ -45,13 +40,7 @@ jobs:
 
       - name: Set image tag
         id: image_tag
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "image_tag=${{ github.event.inputs.image_tag }}" >> "$GITHUB_OUTPUT"
-          else
-            # Use commit SHA for automatic deployments
-            echo "image_tag=${{ github.sha }}" >> "$GITHUB_OUTPUT"
-          fi
+        run: echo "image_tag=latest" >> "$GITHUB_OUTPUT"
 
       - name: Terraform plan (for visibility)
         id: plan

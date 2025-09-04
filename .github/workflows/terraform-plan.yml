@@ -12,7 +12,7 @@ permissions:
 
 env:
   AWS_REGION: ap-northeast-1
-  ROLE_ARN: arn:aws:iam::111227927661:role/TerraformDeployRole
+  ROLE_ARN: arn:aws:iam::412381775063:role/TerraformDeployRole
   TF_WORKING_DIR: infra
 
 jobs:
