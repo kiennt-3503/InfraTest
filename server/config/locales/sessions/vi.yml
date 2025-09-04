@@ -1,0 +1,17 @@
+vi:
+  sessions:
+    token_missing: "Thiếu token"
+    token_invalid: "Token không hợp lệ"
+    token_expired: "Token đã hết hạn hoặc không tồn tại"
+    user_not_found: "Không tìm thấy người dùng"
+    unauthorized: "Không được phép truy cập"
+    token_valid: "Token hợp lệ"
+    verify_code_invalid: "Mã xác thực không hợp lệ"
+    token_refreshed_success: "Làm mới token thành công"
+    login:
+      desc: "Đăng nhập"
+      fail: "Tên người dùng hoặc mật khẩu hoặc mã bảo mật không hợp lệ"
+      success: "Đăng nhập thành công"
+    logout:
+      desc: "Đăng xuất khỏi hệ thống"
+      success: "Đăng xuất thành công"

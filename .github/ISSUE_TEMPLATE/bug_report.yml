@@ -1,0 +1,29 @@
+name: 🐞 Bug Report
+description: Ghi nhận lỗi UI/Logic/API
+title: "[Bug]: "
+labels: ["bug"]
+assignees: []
+
+body:
+  - type: textarea
+    id: steps
+    attributes:
+      label: 🔁 Bước tái hiện
+      placeholder: 1. Truy cập... 2. Click... 3. Thấy lỗi...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ Kết quả mong muốn
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: ❌ Kết quả thực tế
+
+  - type: textarea
+    id: log
+    attributes:
+      label: 📄 Log lỗi / Screenshot (nếu có)

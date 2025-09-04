@@ -1,0 +1,10 @@
+ja:
+  messages:
+    not_found: "メッセージが見つかりません"
+    already_deleted: "メッセージはすでに削除されています"
+    unauthorized: "このメッセージを削除する権限がありません"
+    deleted_success: "メッセージは正常に削除（ソフト削除）されました"
+    get_all:
+      desc: "チャットルーム内のすべてのメッセージを取得"
+      params:
+        chat_room_id: "チャットルームのID"

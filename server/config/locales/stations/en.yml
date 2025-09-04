@@ -1,0 +1,4 @@
+en:
+  stations:
+    by_prefecture:
+      desc: 'Get stations by prefecture_id and/or postal_code'

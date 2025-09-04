@@ -1,0 +1,6 @@
+ja:
+  errors:
+    invalid_token: "無効なトークンです"
+    domain_not_allowed: "許可されていないメールドメインです"
+  messages:
+    email_verified: "メールアドレスが確認されました"

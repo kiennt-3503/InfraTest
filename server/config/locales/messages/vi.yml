@@ -1,0 +1,10 @@
+vi:
+  messages:
+    not_found: "Không tìm thấy tin nhắn"
+    already_deleted: "Tin nhắn đã bị xoá trước đó"
+    unauthorized: "Bạn không có quyền xoá tin nhắn này"
+    deleted_success: "Xoá tin nhắn (xoá mềm) thành công"
+    get_all:
+      desc: "Lấy tất cả tin nhắn trong phòng chat"
+      params:
+        chat_room_id: "ID của phòng chat"

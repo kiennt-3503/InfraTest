@@ -1,0 +1,6 @@
+ja:
+  profiles:
+    fetch_success: "プロフィールを取得しました"
+    not_found: "プロフィールが見つかりません"
+    create_success: "プロフィールを作成しました"
+    update_success: "プロフィールを更新しました"

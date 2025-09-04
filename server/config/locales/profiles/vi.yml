@@ -1,0 +1,6 @@
+vi:
+  profiles:
+    fetch_success: "Lấy hồ sơ thành công"
+    not_found: "Không tìm thấy hồ sơ"
+    create_success: "Tạo hồ sơ thành công"
+    update_success: "Cập nhật hồ sơ thành công"

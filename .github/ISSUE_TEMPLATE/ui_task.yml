@@ -1,0 +1,30 @@
+name: 🎨 UI Task
+description: Giao diện, layout, responsive...
+title: "[UI]: "
+labels: ["frontend", "ui", "task"]
+assignees: []
+
+body:
+  - type: input
+    id: goal
+    attributes:
+      label: 📄 Mục tiêu
+      placeholder: Tạo form đăng nhập theo Figma
+    validations:
+      required: true
+
+  - type: textarea
+    id: checklist
+    attributes:
+      label: ✅ Checklist công việc
+      description: Viết checklist dạng markdown (dòng nào cũng có `- [ ]`)
+      placeholder: |
+        - [ ] Checklist 1
+        - [ ] Checklist 2
+        - [ ] Checklist 3
+
+  - type: textarea
+    id: related
+    attributes:
+      label: 📌 Liên quan
+      placeholder: PR, Figma link, issue #...

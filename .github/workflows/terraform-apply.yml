@@ -1,0 +1,88 @@
+name: Terraform Apply (auto after merge, waits approval)
+
+on:
+  push:
+    branches: [ develop ]
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Docker image tag to deploy'
+        required: true
+        default: 'latest'
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: ap-northeast-1
+  ROLE_ARN: arn:aws:iam::111227927661:role/TerraformDeployRole
+  TF_WORKING_DIR: infra/terraform/environments/dev
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    environment: prd
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform init
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        run: terraform init -input=false
+
+      - name: Set image tag
+        id: image_tag
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "image_tag=${{ github.event.inputs.image_tag }}" >> "$GITHUB_OUTPUT"
+          else
+            # Use commit SHA for automatic deployments
+            echo "image_tag=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Terraform plan (for visibility)
+        id: plan
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        env:
+          TF_VAR_image_tag: ${{ steps.image_tag.outputs.image_tag }}
+        run: |
+          PLAN_FILE="tfplan-apply-$(date +%Y%m%d-%H%M%S).tfplan"
+          terraform plan -input=false -out "$PLAN_FILE"
+          terraform show -no-color "$PLAN_FILE" > plan.show
+          echo "plan_file=$PLAN_FILE" >> "$GITHUB_OUTPUT"
+
+      - name: Upload plan artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.plan.outputs.plan_file }}
+          path: ${{ env.TF_WORKING_DIR }}/${{ steps.plan.outputs.plan_file }}
+          retention-days: 7
+
+      - name: Attach plan to job summary
+        if: always()
+        run: |
+          echo '### Terraform plan' >> $GITHUB_STEP_SUMMARY
+          echo "**Image Tag:** ${{ steps.image_tag.outputs.image_tag }}" >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          sed -n '1,60000p' "${{ env.TF_WORKING_DIR }}/plan.show" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: Terraform apply (after approval)
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        env:
+          TF_VAR_image_tag: ${{ steps.image_tag.outputs.image_tag }}
+        run: terraform apply -auto-approve ${{ steps.plan.outputs.plan_file }}

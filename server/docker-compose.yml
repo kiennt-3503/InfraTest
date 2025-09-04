@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  redis:
+    image: "redis:latest"
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+  web:
+    platform: linux/amd64
+    build:
+      context: .
+    ports:
+      - "3001:3000"
+    volumes:
+      - .:/rails
+    depends_on:
+      - db
+      - redis
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: postgres://postgres:password@db:5432
+      REGISTER_CODE: EP8
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      FIREBASE_PROJECT_ID: mapapp-30e6f
+      ALLOWED_EMAIL_DOMAIN: sun-asterisk.com
+    tty: true
+    stdin_open: true
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "8080:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+      - db
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  db-data:
+  pgadmin-data:

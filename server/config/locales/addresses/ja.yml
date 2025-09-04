@@ -1,0 +1,7 @@
+ja:
+  addresses:
+    created_successfully: "住所が正常に作成されました。"
+    district_not_found: "地区が見つかりません"
+    town_not_found: "町が見つかりません"
+    town_not_in_district: "指定された地区にこの町は含まれていません"
+    internal_error: "内部エラー: %{message}"

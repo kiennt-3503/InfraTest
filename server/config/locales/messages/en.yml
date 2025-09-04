@@ -1,0 +1,10 @@
+en:
+  messages:
+    not_found: "Message not found"
+    already_deleted: "Message already deleted"
+    unauthorized: "Unauthorized to delete this message"
+    deleted_success: "Message deleted (soft delete) successfully"
+    get_all:
+      desc: "Get all messages in a chat room"
+      params:
+        chat_room_id: "ID of the chat room"

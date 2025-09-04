@@ -1,0 +1,19 @@
+en:
+  shared:
+    messages:
+      internal_server_error: "Internal server error"
+      not_found: "Resource not found"
+      unauthorized: "Authorization required"
+      authentication_error: "An authentication error has occurred"
+      miss_param: "is missing"
+      miss_params: "Missing parameters"
+      blank_attribute: "%{attribute} is a required field"
+      invalid_param: "Invalid parameters"
+      get_data_success: "Get data success"
+      get_data_failed: "Data fetch failed"
+      create_success: "New creation success"
+      create_failed: "New creation failed"
+      update_failed: "Update failed"
+      delete_success: "The %{resource} has been deleted successfully"
+      delete_failed: "Failed to delete the %{resource}"
+      update_success: "Update success"

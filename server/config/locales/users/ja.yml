@@ -1,0 +1,8 @@
+ja:
+  errors:
+    register_code_invalid: "登録コードが無効です"
+  users:
+    registration_success: "登録に成功しました"
+    login_success: "ログインに成功しました"
+    invalid_credentials: "ユーザー名、パスワード、または確認コードが無効です"
+    internal_error: "サーバー内部エラー"

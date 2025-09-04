@@ -1,0 +1,7 @@
+en:
+  addresses:
+    created_successfully: "Address created successfully."
+    district_not_found: "District not found"
+    town_not_found: "Town not found"
+    town_not_in_district: "Town does not belong to the specified district"
+    internal_error: "Internal error: %{message}"

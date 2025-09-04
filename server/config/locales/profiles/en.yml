@@ -1,0 +1,6 @@
+en:
+  profiles:
+    fetch_success: "Profile fetched successfully"
+    not_found: "Profile not found"
+    create_success: "Profile created successfully"
+    update_success: "Profile updated successfully"

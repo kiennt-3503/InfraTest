@@ -1,0 +1,8 @@
+en:
+  errors:
+    register_code_invalid: "The registration code is invalid"
+  users:
+    registration_success: "Registration successful"
+    login_success: "Login successful"
+    invalid_credentials: "Invalid username or password or verification code"
+    internal_error: "Internal server error"

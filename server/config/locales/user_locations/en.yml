@@ -1,0 +1,9 @@
+en:
+  user_locations:
+    created_successfully: "User location created successfully."
+    invalid_location_type: "Invalid location type"
+    not_found_entities: "%{entity} not found for IDs: %{ids}"
+    internal_error: "Internal error: %{error}"
+    user_not_found: "User not found"
+    updated_successfully: "User locations have been successfully updated"
+    duplicate_station: "Some stations are already registered for this user"

@@ -1,0 +1,30 @@
+name: 🧹 Refactor Task
+description: Dọn dẹp, tối ưu code, DRY, clear
+title: "[Refactor]: "
+labels: ["refactor", "tech-debt"]
+assignees: []
+
+body:
+  - type: textarea
+    id: reason
+    attributes:
+      label: 🔍 Lý do refactor
+      placeholder: Code lặp, khó maintain...
+    validations:
+      required: true
+
+  - type: textarea
+    id: checklist
+    attributes:
+      label: ✅ Checklist công việc
+      description: Viết checklist dạng markdown (dòng nào cũng có `- [ ]`)
+      placeholder: |
+        - [ ] Checklist 1
+        - [ ] Checklist 2
+        - [ ] Checklist 3
+
+  - type: textarea
+    id: related
+    attributes:
+      label: 📄 Liên quan
+      placeholder: PR, issue, docs...

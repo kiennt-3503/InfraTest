@@ -1,0 +1,7 @@
+ja:
+  verify_codes:
+    title: "秘密キー"
+    link_verify_code:
+      desc: "秘密キーのリンクを取得する"
+    refresh_token:
+      desc: "検証コードを確認し、有効であればトークンを更新します"

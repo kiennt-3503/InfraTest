@@ -1,0 +1,21 @@
+ja:
+  chat_rooms:
+    joined_success: "チャットルームに参加しました"
+    left_success: "チャットルームを退出しました"
+    already_joined: "すでにこのチャットルームに参加しています"
+    must_be_group: "グループチャットルームのみ参加可能です"
+    invalid_location_type: "チャットルームの位置情報タイプが無効です"
+    not_joinable: "有効な位置情報を持つグループチャットルームのみ参加できます"
+    not_join: "チャットルームに参加していません"
+    not_permission: "権限がありません：自分のチャットルームのみ閲覧できます"
+    fetch_rooms_by_user: "ユーザーのチャットルームを正常に取得しました"
+    fetch_detail_success: "チャットルームの詳細を正常に取得しました"
+    member_not_found: "このメンバーがまだ参加していないです"
+    by_area:
+      desc: "エリア別のチャットルームを取得"
+      zoom_too_low: "ズームレベルが低すぎます"
+    not_found: "チャットルームが見つかりません"
+    unauthorized_access: "このチャットルームのメンバーではありません"
+    mark_read:
+      desc: "チャットルーム内のすべてのメッセージを既読にします"
+      marked_as_read_successfully: "メッセージを既読にしました"

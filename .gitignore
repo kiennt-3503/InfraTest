@@ -1,0 +1,4 @@
+infra/tf.sh
+infra/.terraform.lock.hcl
+infra/.terraform/*
+.DS_Store

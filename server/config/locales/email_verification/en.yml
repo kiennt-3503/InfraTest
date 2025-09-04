@@ -1,0 +1,6 @@
+en:
+  errors:
+    invalid_token: "Invalid token"
+    domain_not_allowed: "Email domain not allowed"
+  messages:
+    email_verified: "Email has been verified"

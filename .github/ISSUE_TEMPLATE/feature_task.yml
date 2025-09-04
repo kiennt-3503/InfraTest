@@ -1,0 +1,36 @@
+name: 📆 Feature / Epic
+description: Task cha gom nhiều subtasks
+title: "[Feature]: "
+labels: ["feature", "epic", "fullstack"]
+assignees: []
+
+body:
+  - type: input
+    id: goal
+    attributes:
+      label: 🌟 Mục tiêu tổng thể
+      placeholder: Hoàn thiện chức năng đăng nhập
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: 📄 Phạm vi
+      placeholder: Bao gồm giao diện, API, validate...
+
+  - type: textarea
+    id: checklist
+    attributes:
+      label: ✅ Checklist công việc
+      description: Viết checklist dạng markdown (dòng nào cũng có `- [ ]`)
+      placeholder: |
+        - [ ] Checklist 1
+        - [ ] Checklist 2
+        - [ ] Checklist 3
+
+  - type: textarea
+    id: note
+    attributes:
+      label: 📄 Ghi chú thêm
+      placeholder: Link design, specs...

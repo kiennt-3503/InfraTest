@@ -1,0 +1,4 @@
+ja:
+  stations:
+    by_prefecture:
+      desc: '都道府県IDや郵便番号で駅を取得する'

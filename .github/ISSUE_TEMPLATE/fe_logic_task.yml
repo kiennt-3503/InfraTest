@@ -1,0 +1,30 @@
+name: 🧠 FE Logic Task
+description: Gọi API, xử lý luồng, ghép backend
+title: "[FE]: "
+labels: ["frontend", "logic", "task"]
+assignees: []
+
+body:
+  - type: input
+    id: goal
+    attributes:
+      label: 📄 Mục tiêu
+      placeholder: Call API login, handle loading/error...
+    validations:
+      required: true
+
+  - type: textarea
+    id: checklist
+    attributes:
+      label: ✅ Checklist công việc
+      description: Viết checklist dạng markdown (dòng nào cũng có `- [ ]`)
+      placeholder: |
+        - [ ] Checklist 1
+        - [ ] Checklist 2
+        - [ ] Checklist 3
+
+  - type: textarea
+    id: related
+    attributes:
+      label: 📌 Liên quan
+      placeholder: Link API, docs, PR...

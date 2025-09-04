@@ -1,0 +1,22 @@
+vi:
+  activerecord:
+    models:
+      user: Người dùng
+    attributes:
+      user:
+        username: Tên đăng nhập
+        email: Email
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      blank: "không được để trống"
+      taken: "đã tồn tại"
+      too_short: "quá ngắn (tối thiểu %{count} ký tự)"
+      too_long: "quá dài (tối đa %{count} ký tự)"
+      invalid: "không hợp lệ"
+      confirmation: "không khớp với xác nhận"
+      accepted: "phải được chấp nhận"
+      empty: "không được rỗng"
+      not_a_number: "không phải là số"
+      greater_than: "phải lớn hơn %{count}"
+      less_than: "phải nhỏ hơn %{count}"

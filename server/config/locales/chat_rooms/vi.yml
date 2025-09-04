@@ -1,0 +1,21 @@
+vi:
+  chat_rooms:
+    joined_success: "Tham gia phòng chat thành công"
+    left_success: "Rời phòng chat thành công"
+    already_joined: "Bạn đã tham gia phòng chat này rồi"
+    must_be_group: "Chỉ có thể tham gia các phòng nhóm"
+    invalid_location_type: "Loại vị trí của phòng không hợp lệ"
+    not_joinable: "Chỉ có thể tham gia phòng nhóm thuộc khu vực hợp lệ"
+    not_join: "Bạn chưa tham gia phòng trò chuyện nào"
+    not_permission: "Bị cấm: Bạn chỉ có thể xem các phòng trò chuyện của riêng mình"
+    fetch_rooms_by_user: "Lấy danh sách phòng trò chuyện theo người dùng thành công"
+    fetch_detail_success: "Lấy chi tiết phòng trò chuyện thành công"
+    member_not_found: "Không có thành viên này"
+    by_area:
+      desc: "Lấy danh sách phòng trò chuyện theo khu vực"
+      zoom_too_low: "Mức thu phóng quá thấp"
+    not_found: "Không tìm thấy phòng chat"
+    unauthorized_access: "Bạn không phải là thành viên của phòng chat này"
+    mark_read:
+      desc: "Đánh dấu tất cả tin nhắn trong phòng chat là đã đọc"
+      marked_as_read_successfully: "Đã đánh dấu tất cả tin nhắn là đã đọc"

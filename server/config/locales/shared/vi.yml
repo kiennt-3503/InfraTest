@@ -1,0 +1,19 @@
+vi:
+  shared:
+    messages:
+      internal_server_error: "Lỗi máy chủ nội bộ"
+      not_found: "Không tìm thấy tài nguyên"
+      unauthorized: "Yêu cầu cần xác thực"
+      authentication_error: "Đã xảy ra lỗi xác thực"
+      miss_param: "bị thiếu"
+      miss_params: "Thiếu tham số"
+      blank_attribute: "%{attribute} là trường bắt buộc"
+      invalid_param: "Tham số không hợp lệ"
+      get_data_success: "Lấy dữ liệu thành công"
+      get_data_failed: "Lấy dữ liệu thất bại"
+      create_success: "Tạo mới thành công"
+      create_failed: "Tạo mới không thành công"
+      update_failed: "Cập nhật thất bại"
+      delete_success: "%{resource} đã được xóa thành công"
+      delete_failed: "Không thể xóa %{resource}"
+      update_success: "Cập nhật thành công"

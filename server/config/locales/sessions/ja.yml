@@ -1,0 +1,17 @@
+ja:
+  sessions:
+    token_missing: "トークンが見つかりません"
+    token_invalid: "無効なトークンです"
+    token_expired: "トークンの有効期限が切れているか存在しません"
+    user_not_found: "ユーザーが見つかりません"
+    unauthorized: "アクセス権がありません"
+    token_valid: "トークンは有効です"
+    verify_code_invalid: "認証コードが無効です"
+    token_refreshed_success: "トークンが正常に更新されました"
+    login:
+      desc: "ログイン"
+      fail: "ユーザー名またはパスワードまたは秘密キーが無効です"
+      success: "ログインに成功しました"
+    logout:
+      desc: "システムからログアウトする"
+      success: "ログアウトに成功しました"

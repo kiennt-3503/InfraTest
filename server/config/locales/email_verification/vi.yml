@@ -1,0 +1,6 @@
+vi:
+  errors:
+    invalid_token: "Token không hợp lệ"
+    domain_not_allowed: "Tên miền email không được phép"
+  messages:
+    email_verified: "Xác minh email thành công"

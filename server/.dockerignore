@@ -1,0 +1,54 @@
+# Git & VCS
+.git
+.gitignore
+
+# Bundle config & vendor
+.bundle
+vendor/bundle
+
+# Node modules
+node_modules
+yarn.lock
+package-lock.json
+
+# Docker artifacts
+Dockerfile*
+.dockerignore
+
+# Environment files
+.env
+.env.*
+
+# Rails secrets
+/config/master.key
+/config/credentials/*.key
+/config/credentials.yml.enc
+
+# Logs and tmp
+log/*
+tmp/*
+!/log/.keep
+!/tmp/.keep
+/tmp/pids/*
+!/tmp/pids/.keep
+/tmp/storage/*
+!/tmp/storage/.keep
+
+# Uploaded files (ActiveStorage local)
+storage/*
+!/storage/.keep
+
+# Test artifacts
+coverage/
+spec/examples.txt
+
+# Editor/IDE
+*.swp
+*.swo
+*.swn
+*~
+*.bak
+*.tmp
+*.log
+.vscode
+.idea

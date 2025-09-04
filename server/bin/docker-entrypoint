@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+# Nếu đang chạy server thì chuẩn bị DB
+if [ "$1" = "bundle" ] && [ "$2" = "exec" ] && [ "$3" = "rails" ] && [ "$4" = "server" ]; then
+  echo "== Preparing database =="
+  bundle exec rails db:prepare
+fi
+
+exec "$@"

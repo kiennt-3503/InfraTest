@@ -1,0 +1,22 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+    attributes:
+      user:
+        username: ユーザー名
+        email: メールアドレス
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: "を入力してください"
+      taken: "はすでに存在します"
+      too_short: "は%{count}文字以上で入力してください"
+      too_long: "は%{count}文字以下で入力してください"
+      invalid: "は正しくありません"
+      confirmation: "と一致しません"
+      accepted: "を承認してください"
+      empty: "を入力してください"
+      not_a_number: "は数値で入力してください"
+      greater_than: "%{count}より大きい値にしてください"
+      less_than: "%{count}より小さい値にしてください"

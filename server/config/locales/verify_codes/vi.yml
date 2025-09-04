@@ -1,0 +1,7 @@
+vi:
+  verify_codes:
+    title: "Mã bảo mật"
+    link_verify_code:
+      desc: "Lấy link mã bảo mật"
+    refresh_token:
+      desc: "Xác thực mã xác nhận và làm mới token nếu hợp lệ"

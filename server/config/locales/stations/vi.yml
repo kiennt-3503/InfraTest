@@ -1,0 +1,4 @@
+vi:
+  stations:
+    by_prefecture:
+      desc: 'Lấy danh sách ga theo prefecture_id và/hoặc mã bưu điện'

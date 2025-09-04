@@ -1,0 +1,7 @@
+vi:
+  addresses:
+    created_successfully: "Tạo địa chỉ thành công."
+    district_not_found: "Không tìm thấy quận/huyện"
+    town_not_found: "Không tìm thấy phường/xã"
+    town_not_in_district: "Phường/xã không thuộc quận/huyện đã chọn"
+    internal_error: "Lỗi nội bộ: %{message}"

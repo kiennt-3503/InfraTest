@@ -1,0 +1,7 @@
+en:
+  verify_codes:
+    title: Verify Codes
+    link_verify_code:
+      desc: "Get link verify code"
+    refresh_token:
+      desc: "Verify code and refresh token if valid"

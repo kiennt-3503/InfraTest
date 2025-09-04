@@ -1,0 +1,32 @@
+blank_issues_enabled: false
+
+contact_links: []
+
+issue_templates:
+  - name: 🎨 UI Task
+    description: Công việc giao diện – layout, style, responsive...
+    file: ui_task.yml
+
+  - name: 🧠 FE Logic Task
+    description: Gọi API, xử lý luồng logic phía frontend
+    file: fe_logic_task.yml
+
+  - name: 🛠️ BE Task
+    description: Xử lý logic backend – API, database, validate...
+    file: be_task.yml
+
+  - name: 🐞 Bug Report
+    description: Gửi báo cáo lỗi giao diện, logic hoặc API
+    file: bug_report.yml
+
+  - name: 🧹 Refactor Task
+    description: Dọn dẹp và tối ưu code (FE hoặc BE)
+    file: refactor_task.yml
+
+  - name: 📦 Feature / Epic
+    description: Task cha gồm nhiều subtasks nhỏ
+    file: feature_task.yml
+
+  - name: 📌 General Task
+    description: Công việc khác không phân loại rõ ràng
+    file: general_task.yml

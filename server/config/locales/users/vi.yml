@@ -1,0 +1,9 @@
+vi:
+  errors:
+    register_code_invalid: "Mã đăng ký không hợp lệ"
+  users:
+    registration_success: "Đăng ký thành công"
+    login_success: "Đăng nhập thành công"
+    invalid_credentials: "Tên đăng nhập hoặc mật khẩu hoặc mã xác nhận không đúng"
+    internal_error: "Lỗi máy chủ nội bộ"
+    invalid_code: "Mã xác minh không hợp lệ hoặc đã hết hạn"

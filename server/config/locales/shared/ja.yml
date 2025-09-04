@@ -1,0 +1,19 @@
+ja:
+  shared:
+    messages:
+      internal_server_error: "内部サーバーエラー"
+      not_found: "リソースが見つかりません"
+      unauthorized: "許可が必要です"
+      authentication_error: "認証エラーが発生しました"
+      miss_param: "パラメータがありません"
+      miss_params: "パラメータがありません"
+      blank_attribute: "%{attribute}は必須なところです "
+      invalid_param: "無効なパラメータ"
+      get_data_success: "データの取得に成功しました"
+      get_data_failed: "データの取得に失敗しました"
+      create_success: "新規作成ができました"
+      create_failed: "新規作成に失敗しました"
+      update_failed: "更新に失敗しました"
+      delete_success: "%{resource} は削除されました。"
+      delete_failed: "%{resource} の削除に失敗しました"
+      update_success: "更新されました"

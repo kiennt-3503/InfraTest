@@ -1,0 +1,93 @@
+name: Terraform Plan
+
+on:
+  pull_request:
+    branches: [ develop ]
+  workflow_dispatch: {}
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+env:
+  AWS_REGION: ap-northeast-1
+  ROLE_ARN: arn:aws:iam::111227927661:role/TerraformDeployRole
+  TF_WORKING_DIR: infra
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform fmt
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        run: terraform fmt -check -recursive
+
+      - name: Terraform init
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        run: terraform init -input=false
+
+      - name: Terraform validate
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        run: terraform validate
+
+      - name: Terraform plan (save file)
+        id: plan
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        run: |
+          PLAN_FILE="tfplan-$(date +%Y%m%d-%H%M%S).tfplan"
+          terraform plan -input=false -no-color -out "$PLAN_FILE" | tee plan.out
+          echo "plan_file=$PLAN_FILE" >> "$GITHUB_OUTPUT"
+
+      - name: Upload plan artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.plan.outputs.plan_file }}
+          path: ${{ env.TF_WORKING_DIR }}/${{ steps.plan.outputs.plan_file }}
+          retention-days: 7
+
+      - name: Render human-readable plan
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        run: terraform show -no-color ${{ steps.plan.outputs.plan_file }} > plan.show
+
+      - name: Comment Plan to PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const summary = fs.readFileSync('${{ env.TF_WORKING_DIR }}/plan.show', 'utf8');
+            const body = [
+              '### Terraform Plan ✅',
+              '',
+              '<details><summary>Click to expand</summary>',
+              '',
+              '```',
+              summary.substring(0, 60000),
+              '```',
+              '',
+              `**Artifact:** \`${{ steps.plan.outputs.plan_file }}\` (download from Actions artifacts)`,
+              '',
+              '</details>'
+            ].join('\n');
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            });

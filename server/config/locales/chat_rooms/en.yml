@@ -1,0 +1,21 @@
+en:
+  chat_rooms:
+    joined_success: "Successfully joined the chat room"
+    left_success: "Successfully left the chat room"
+    already_joined: "You have already joined this chat room"
+    must_be_group: "Only group chat rooms can be joined"
+    invalid_location_type: "Chat room has an invalid location type"
+    not_joinable: "Only group chat rooms with valid location types can be joined"
+    not_join: "You have not joined any chat rooms"
+    not_permission: "Forbidden: You can only view your own chat rooms"
+    fetch_rooms_by_user: "Successfully fetched chat rooms by user"
+    fetch_detail_success: "Successfully fetched chat room details"
+    member_not_found: "Member not found"
+    by_area:
+      desc: "Get chat rooms by area"
+      zoom_too_low: "Zoom level is too low"
+    not_found: "Chat room not found"
+    unauthorized_access: "You are not a member of this chat room"
+    mark_read:
+      desc: "Mark all messages as read in a chat room"
+      marked_as_read_successfully: "Marked all messages as read successfully"

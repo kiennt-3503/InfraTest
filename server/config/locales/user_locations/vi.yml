@@ -1,0 +1,9 @@
+vi:
+  user_locations:
+    created_successfully: "Tạo thành công."
+    invalid_location_type: "Loại vị trí không hợp lệ"
+    not_found_entities: "Không tìm thấy %{entity} với ID: %{ids}"
+    internal_error: "Lỗi nội bộ: %{error}"
+    user_not_found: "Không tìm thấy người dùng"
+    updated_successfully: "Vị trí người dùng đã được cập nhật thành công"
+    duplicate_station: "Một số station đã được tạo cho user này rồi"

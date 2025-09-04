@@ -1,0 +1,9 @@
+ja:
+  user_locations:
+    created_successfully: "正常に作成されました。"
+    invalid_location_type: "無効な位置タイプです"
+    not_found_entities: "%{ids} の ID に対する %{entity} が見つかりません"
+    internal_error: "内部エラー: %{error}"
+    user_not_found: "ユーザーが見つかりません"
+    updated_successfully: "ステーションのユーザーロケーションが更新されました"
+    duplicate_station: "既に登録されているステーションがあります"
