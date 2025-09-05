@@ -70,14 +70,20 @@ variable "db_username" {
   default     = "mapapp"
 }
 
-variable "db_password" {
-  description = "RDS master password"
+
+variable "db_password_ssm_name" {
+  description = "SSM Parameter name storing the DB password (SecureString)"
   type        = string
-  sensitive   = true
+  default     = "/mapapp/dev/db_password"
 }
 
 variable "allowed_ingress_cidrs" {
   description = "CIDR blocks allowed to access ALB (e.g., office IP)"
   type        = list(string)
   default     = ["0.0.0.0/0"]
-} 
+}
+variable "redis_node_type" {
+  description = "Redis ElastiCache node type"
+  type        = string
+  default     = "cache.t4g.micro"
+}

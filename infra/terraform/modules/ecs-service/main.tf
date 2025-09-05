@@ -35,10 +35,45 @@ resource "aws_ecs_task_definition" "rails" {
         { containerPort = 3000, hostPort = 3000, protocol = "tcp" }
       ]
       environment = [
-        { name = "RAILS_ENV", value = "production" },
+        # Core Rails Environment
+        { name = "RAILS_ENV", value = var.rails_env },
+        { name = "SECRET_KEY_BASE", value = var.secret_key_base },
+        { name = "RELEASE_STAGE", value = var.release_stage },
+        
+        # Database Configuration
         { name = "DATABASE_HOST", value = var.rds_address },
         { name = "DATABASE_USERNAME", value = var.db_username },
-        { name = "DATABASE_PASSWORD", value = var.db_password }
+        { name = "DATABASE_PASSWORD", value = var.db_password },
+        
+        # Redis Configuration
+        { name = "REDIS_URL", value = var.redis_url },
+        
+        # Active Record Encryption
+        { name = "ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY", value = var.active_record_encryption_primary_key },
+        { name = "ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY", value = var.active_record_encryption_deterministic_key },
+        { name = "ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT", value = var.active_record_encryption_key_derivation_salt },
+        
+        # Application Configuration
+        { name = "ALLOWED_EMAIL_DOMAIN", value = var.allowed_email_domain },
+        { name = "CORS_ORIGINS", value = var.cors_origins },
+        
+        # External Services
+        { name = "BUGSNAG_API_KEY", value = var.bugsnag_api_key },
+        { name = "FIREBASE_PROJECT_ID", value = var.firebase_project_id },
+        { name = "GOOGLE_CERTS_URL", value = var.google_certs_url },
+        { name = "ISSUER_BASE_URL", value = var.issuer_base_url },
+        
+        # Slack Integration
+        { name = "SLACK_BOT_TOKEN", value = var.slack_bot_token },
+        { name = "SLACK_CHANNEL_ID", value = var.slack_channel_id },
+        
+        # API Documentation
+        { name = "SWAGGER_USERNAME", value = var.swagger_username },
+        { name = "SWAGGER_PASSWORD", value = var.swagger_password },
+        
+        # Web Push Notifications
+        { name = "VAPID_PUBLIC_KEY", value = var.vapid_public_key },
+        { name = "VAPID_PRIVATE_KEY", value = var.vapid_private_key },
       ]
       logConfiguration = {
         logDriver = "awslogs"

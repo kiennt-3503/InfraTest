@@ -54,6 +54,36 @@ resource "aws_instance" "nat" {
 
   vpc_security_group_ids = [aws_security_group.nat.id]
 
+  # Configure NAT functionality on the instance
+  user_data = <<-EOF
+    #!/bin/bash
+    set -euxo pipefail
+
+    # Enable IP forwarding
+    sysctl -w net.ipv4.ip_forward=1
+    printf "net.ipv4.ip_forward = 1\n" > /etc/sysctl.d/99-nat.conf
+    sysctl -p /etc/sysctl.d/99-nat.conf || true
+
+    # Install iptables services (AL2)
+    yum install -y iptables-services || true
+
+    # Setup MASQUERADE on outward interface (eth0)
+    /sbin/iptables -t nat -C POSTROUTING -o eth0 -j MASQUERADE 2>/dev/null || /sbin/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+    service iptables save || true
+
+    # Persist on reboot
+    cat >/etc/rc.d/rc.local <<'RCLOCAL'
+    #!/bin/bash
+    /sbin/iptables -t nat -C POSTROUTING -o eth0 -j MASQUERADE 2>/dev/null || /sbin/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+    sysctl -w net.ipv4.ip_forward=1
+    RCLOCAL
+    chmod +x /etc/rc.d/rc.local
+
+    # Log current routes and iptables
+    ip route || true
+    iptables -t nat -S || true
+    EOF
+
   tags = merge(var.tags, {
     Name = "${var.name_prefix}-nat-instance"
   })

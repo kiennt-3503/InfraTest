@@ -36,4 +36,13 @@ output "ecs_cluster_name" {
 output "ecs_service_name" {
   description = "ECS service name"
   value       = module.ecs_service.service_name
-} 
+}
+output "redis_endpoint" {
+  description = "Redis primary endpoint"
+  value       = module.redis.redis_endpoint
+}
+
+output "redis_url" {
+  description = "Redis connection URL"
+  value       = module.redis.redis_url
+}
