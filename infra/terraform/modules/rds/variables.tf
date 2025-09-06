@@ -25,6 +25,11 @@ variable "db_instance_class" {
   default     = "db.t4g.micro"
 }
 
+variable "db_name" {
+  description = "Database name"
+  type        = string
+}
+
 variable "db_username" {
   description = "RDS master username"
   type        = string

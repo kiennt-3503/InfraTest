@@ -24,7 +24,7 @@ variable "ecs_security_group_id" {
 }
 
 variable "target_group_arn" {
-  description = "ALB target group ARN"
+  description = "Target group ARN"
   type        = string
 }
 
@@ -36,6 +36,12 @@ variable "alb_listener_arn" {
 variable "ecr_repository_url" {
   description = "ECR repository URL"
   type        = string
+}
+
+variable "image_tag" {
+  description = "Docker image tag"
+  type        = string
+  default     = "latest"
 }
 
 variable "rds_address" {
@@ -54,40 +60,54 @@ variable "db_password" {
   sensitive   = true
 }
 
-variable "tags" {
-  description = "Tags to apply to resources"
-  type        = map(string)
-  default     = {}
-} 
 variable "redis_url" {
   description = "Redis connection URL"
   type        = string
 }
 
-variable "rails_env" {
-  description = "Rails environment (e.g., development, production)"
-  type        = string
-  default     = "production"
+variable "tags" {
+  description = "Tags to apply to resources"
+  type        = map(string)
+  default     = {}
 }
 
-# APP ENV - Remove all default values
-variable "active_record_encryption_primary_key" {
-  description = "Active Record Encryption primary key"
+# APP ENV Variables
+variable "rails_env" {
+  description = "Rails environment"
   type        = string
+}
+
+variable "secret_key_base" {
+  description = "Rails secret key base"
+  type        = string
+  sensitive   = true
+}
+
+variable "active_record_encryption_primary_key" {
+  description = "Active Record encryption primary key"
+  type        = string
+  sensitive   = true
 }
 
 variable "active_record_encryption_deterministic_key" {
-  description = "Active Record Encryption deterministic key"
+  description = "Active Record encryption deterministic key"
   type        = string
+  sensitive   = true
 }
 
 variable "active_record_encryption_key_derivation_salt" {
-  description = "Active Record Encryption key derivation salt"
+  description = "Active Record encryption key derivation salt"
   type        = string
+  sensitive   = true
 }
 
 variable "allowed_email_domain" {
-  description = "List of allowed email domains for user sign-up"
+  description = "Allowed email domain"
+  type        = string
+}
+
+variable "cors_origins" {
+  description = "CORS origins"
   type        = string
 }
 
@@ -97,18 +117,13 @@ variable "bugsnag_api_key" {
   sensitive   = true
 }
 
-variable "cors_origins" {
-  description = "CORS allowed origins"
-  type        = string
-}
-
 variable "firebase_project_id" {
   description = "Firebase project ID"
   type        = string
 }
 
 variable "google_certs_url" {
-  description = "Google certs URL"
+  description = "Google certificates URL"
   type        = string
 }
 
@@ -118,14 +133,8 @@ variable "issuer_base_url" {
 }
 
 variable "release_stage" {
-  description = "Release stage (e.g., development, production)"
+  description = "Release stage"
   type        = string
-}
-
-variable "secret_key_base" {
-  description = "Secret key base for Rails"
-  type        = string
-  sensitive   = true
 }
 
 variable "slack_bot_token" {
@@ -140,23 +149,23 @@ variable "slack_channel_id" {
 }
 
 variable "swagger_username" {
-  description = "Swagger UI basic auth username"
+  description = "Swagger username"
   type        = string
 }
 
 variable "swagger_password" {
-  description = "Swagger UI basic auth password"
+  description = "Swagger password"
   type        = string
   sensitive   = true
 }
 
 variable "vapid_public_key" {
-  description = "VAPID public key for Web Push"
+  description = "VAPID public key"
   type        = string
 }
 
 variable "vapid_private_key" {
-  description = "VAPID private key for Web Push"
+  description = "VAPID private key"
   type        = string
   sensitive   = true
 }

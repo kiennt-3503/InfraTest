@@ -41,7 +41,6 @@ output "redis_endpoint" {
   description = "Redis primary endpoint"
   value       = module.redis.redis_endpoint
 }
-
 output "redis_url" {
   description = "Redis connection URL"
   value       = module.redis.redis_url

@@ -1,5 +1,5 @@
 variable "project" {
-  description = "Project name prefix"
+  description = "Project name"
   type        = string
   default     = "mapapp"
 }
@@ -11,51 +11,57 @@ variable "region" {
 }
 
 variable "vpc_cidr" {
-  description = "VPC CIDR"
+  description = "VPC CIDR block"
   type        = string
-  default     = "10.0.0.0/26"
+  default     = "10.0.0.0/16"
 }
 
 variable "public_subnet_cidrs" {
-  description = "Public subnet CIDRs"
+  description = "Public subnet CIDR blocks"
   type        = list(string)
-  default     = ["10.0.0.0/27", "10.0.0.16/27"]
+  default     = ["10.0.1.0/24", "10.0.2.0/24"]
 }
 
 variable "app_subnet_cidrs" {
-  description = "Application (ECS) subnet CIDRs"
+  description = "Application subnet CIDR blocks"
   type        = list(string)
-  default     = ["10.0.0.32/28", "10.0.0.40/28"]
+  default     = ["10.0.10.0/24", "10.0.20.0/24"]
 }
 
 variable "db_subnet_cidrs" {
-  description = "Database subnet CIDRs"
+  description = "Database subnet CIDR blocks"
   type        = list(string)
-  default     = ["10.0.0.48/28", "10.0.0.56/28"]
+  default     = ["10.0.100.0/24", "10.0.200.0/24"]
 }
 
 variable "azs" {
-  description = "Availability Zones to use"
+  description = "Availability zones"
   type        = list(string)
   default     = ["ap-northeast-1a", "ap-northeast-1c"]
 }
 
+variable "allowed_ingress_cidrs" {
+  description = "Allowed ingress CIDR blocks"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
+
 variable "ecs_instance_type" {
-  description = "EC2 instance type for ECS capacity"
+  description = "ECS instance type"
   type        = string
-  default     = "t3.small"
+  default     = "t3.medium"
 }
 
 variable "desired_capacity" {
-  description = "Desired ECS capacity (EC2)"
+  description = "Desired capacity for ECS cluster"
   type        = number
   default     = 2
 }
 
 variable "db_engine_version" {
-  description = "RDS PostgreSQL engine version"
+  description = "RDS engine version"
   type        = string
-  default     = "15.5"
+  default     = "15.4"
 }
 
 variable "db_instance_class" {
@@ -64,26 +70,32 @@ variable "db_instance_class" {
   default     = "db.t4g.micro"
 }
 
-variable "db_username" {
-  description = "RDS master username"
+variable "db_name" {
+  description = "Database name"
   type        = string
-  default     = "mapapp"
+  default     = "mapapp_dev"
 }
 
+variable "db_username" {
+  description = "Database username"
+  type        = string
+  default     = "postgres"
+}
 
 variable "db_password_ssm_name" {
-  description = "SSM Parameter name storing the DB password (SecureString)"
+  description = "SSM parameter name for database password"
   type        = string
   default     = "/mapapp/dev/db_password"
 }
 
-variable "allowed_ingress_cidrs" {
-  description = "CIDR blocks allowed to access ALB (e.g., office IP)"
-  type        = list(string)
-  default     = ["0.0.0.0/0"]
-}
 variable "redis_node_type" {
-  description = "Redis ElastiCache node type"
+  description = "Redis node type"
   type        = string
   default     = "cache.t4g.micro"
+}
+
+variable "image_tag" {
+  description = "Docker image tag"
+  type        = string
+  default     = "latest"
 }

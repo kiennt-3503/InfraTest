@@ -47,9 +47,12 @@ resource "aws_launch_template" "ecs" {
   }
 
   user_data = base64encode(<<EOF
-#!/bin/bash
-echo ECS_CLUSTER=${aws_ecs_cluster.this.name} >> /etc/ecs/ecs.config
-EOF
+    #!/bin/bash
+    echo ECS_CLUSTER=${aws_ecs_cluster.this.name} >> /etc/ecs/ecs.config
+    yum install -y amazon-ssm-agent
+    systemctl start amazon-ssm-agent
+    systemctl enable amazon-ssm-agent
+    EOF
   )
 
   tag_specifications {
@@ -88,4 +91,9 @@ resource "aws_ecs_cluster" "this" {
     value = "enabled"
   }
   tags = var.tags
+} 
+
+resource "aws_iam_role_policy_attachment" "ecs_instance_ssm" {
+  role       = aws_iam_role.ecs_instance_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 } 

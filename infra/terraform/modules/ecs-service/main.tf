@@ -25,11 +25,12 @@ resource "aws_ecs_task_definition" "rails" {
   cpu                      = "256"
   memory                   = "512"
   execution_role_arn       = aws_iam_role.ecs_task_execution.arn
+  task_role_arn            = aws_iam_role.ecs_task_execution.arn
 
   container_definitions = jsonencode([
     {
       name      = "rails"
-      image     = "${var.ecr_repository_url}:latest"
+      image     = "${var.ecr_repository_url}:${var.image_tag}"
       essential = true
       portMappings = [
         { containerPort = 3000, hostPort = 3000, protocol = "tcp" }
@@ -41,11 +42,12 @@ resource "aws_ecs_task_definition" "rails" {
         { name = "RELEASE_STAGE", value = var.release_stage },
         
         # Database Configuration
+        { name = "DATABASE_URL", value = "postgresql://${var.db_username}:${var.db_password}@${var.rds_address}:5432/mapapp_production" },
         { name = "DATABASE_HOST", value = var.rds_address },
         { name = "DATABASE_USERNAME", value = var.db_username },
         { name = "DATABASE_PASSWORD", value = var.db_password },
         
-        # Redis Configuration
+        #Redis Configuration
         { name = "REDIS_URL", value = var.redis_url },
         
         # Active Record Encryption
@@ -98,6 +100,7 @@ resource "aws_ecs_service" "rails" {
   task_definition = aws_ecs_task_definition.rails.arn
   desired_count   = 2
   launch_type     = "EC2"
+  enable_execute_command = true
 
   load_balancer {
     target_group_arn = var.target_group_arn
@@ -116,4 +119,4 @@ resource "aws_ecs_service" "rails" {
   }
 
   depends_on = [var.alb_listener_arn]
-} 
+}

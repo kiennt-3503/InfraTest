@@ -16,4 +16,4 @@ output "rds_port" {
 output "rds_identifier" {
   description = "RDS instance identifier"
   value       = aws_db_instance.this.identifier
-} 
+}
