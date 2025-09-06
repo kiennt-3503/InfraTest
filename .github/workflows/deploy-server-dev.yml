@@ -1,0 +1,102 @@
+name: Deploy Server to ECS Dev
+
+on:
+  pull_request:
+    types: [ closed ]
+    branches: [ develop ]
+  workflow_dispatch:
+  
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: ap-northeast-1
+  ROLE_ARN: arn:aws:iam::412381775063:role/TerraformDeployRole
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'develop')
+    environment: ${{ github.ref == 'refs/heads/main' && 'prd' || 'dev' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Set Tag
+        id: set-tag
+        run: |
+          echo "tag=dev-${{ github.sha }}" >> "$GITHUB_ENV"
+
+      - name: Resolve ECR registry
+        id: ecr
+        run: |
+          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+          echo "registry=${ACCOUNT_ID}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com" >> "$GITHUB_OUTPUT"
+          echo "repository=${{ vars.ECR_REPOSITORY }}" >> "$GITHUB_OUTPUT"
+
+      - name: Login to Amazon ECR
+        env:
+          AWS_REGION: ${{ env.AWS_REGION }}
+        run: |
+          aws ecr get-login-password --region "$AWS_REGION" | docker login --username AWS --password-stdin ${{ steps.ecr.outputs.registry }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ steps.ecr.outputs.registry }}/${{ steps.ecr.outputs.repository }}
+          tags: |
+            type=raw,value=latest
+            type=raw,value=dev-${{ github.sha }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./server
+          file: ./server/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Download current task definition
+        run: |
+          aws ecs describe-task-definition \
+            --task-definition mapapp-rails \
+            --query taskDefinition > task-definition.json
+
+      - name: Clean task definition
+        run: |
+          jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .deregisteredAt, .registeredBy, .enableFaultInjection)' task-definition.json > cleaned-task-definition.json
+          mv cleaned-task-definition.json task-definition.json
+
+      - name: Render updated task definition
+        id: render-task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          container-name: rails
+          image: ${{ steps.meta.outputs.tags }}
+
+      - name: Deploy to ECS service
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: ${{ steps.render-task-def.outputs.task-definition }}
+          service: mapapp-rails
+          cluster: mapapp-ecs
+          wait-for-service-stability: true
+
+      - name: Output deployment summary
+        run: |
+          echo "## 🚀 Deployed to ECS Dev" >> $GITHUB_STEP_SUMMARY
+          echo "**Cluster:** mapapp-ecs" >> $GITHUB_STEP_SUMMARY
+          echo "**Service:** mapapp-rails" >> $GITHUB_STEP_SUMMARY
+          echo "**Image:** ${{ steps.meta.outputs.tags }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
