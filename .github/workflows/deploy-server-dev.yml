@@ -30,11 +30,6 @@ jobs:
           role-to-assume: ${{ env.ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Set Tag
-        id: set-tag
-        run: |
-          echo "tag=dev-${{ github.sha }}" >> "$GITHUB_ENV"
-
       - name: Resolve ECR registry
         id: ecr
         run: |
