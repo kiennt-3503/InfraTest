@@ -11,7 +11,7 @@ azs                 = ["ap-northeast-1a", "ap-northeast-1c"]
 
 # ECS Configuration
 ecs_instance_type = "t3.small"
-desired_capacity  = 1 // Số lượng EC2 instances trong ECS Cluster
+desired_capacity  = 2
 
 # RDS Configuration
 db_engine_version = "15.13"
@@ -22,5 +22,5 @@ db_username       = "mapapp"
 # Security
 allowed_ingress_cidrs = ["0.0.0.0/0"] # Thay đổi thành IP office khi done
 
-# Adminer Security - IMPORTANT: Thay đổi thành IP của bạn
+# Adminer Security 
 adminer_allowed_cidrs = ["0.0.0.0/0"]  # CHỈ CHO PHÉP IP CỦA BẠN: ["YOUR_IP/32"]

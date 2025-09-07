@@ -122,7 +122,7 @@ resource "aws_instance" "nat" {
     systemctl enable docker
     usermod -aG docker ec2-user || true
 
-    # Pull and run Adminer container directly (no docker-compose needed)
+    # Pull and run Adminer container directly
     docker pull adminer:latest
     
     # Stop and remove any existing adminer container

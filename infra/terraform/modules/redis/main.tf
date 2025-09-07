@@ -25,9 +25,8 @@ resource "aws_elasticache_replication_group" "this" {
   snapshot_window           = "03:00-05:00"
   maintenance_window        = "sun:05:00-sun:07:00"
   
-  # Security
   at_rest_encryption_enabled = true
-  transit_encryption_enabled = true
+  transit_encryption_enabled = false
   
   tags = var.tags
 }
