@@ -4,6 +4,8 @@ on:
   pull_request:
     types: [ closed ]
     branches: [ develop ]
+    paths:
+      - 'server/**'
   workflow_dispatch:
   
 permissions:
@@ -11,14 +13,19 @@ permissions:
   contents: read
 
 env:
-  AWS_REGION: ap-northeast-1
-  ROLE_ARN: arn:aws:iam::412381775063:role/TerraformDeployRole
+  AWS_REGION: ${{ vars.AWS_REGION || 'ap-northeast-1' }}
+  ROLE_ARN: ${{ secrets.AWS_ROLE_ARN || 'arn:aws:iam::412381775063:role/TerraformDeployRole' }}
+  ECS_CLUSTER: ${{ vars.ECS_CLUSTER || 'mapapp-ecs' }}
+  ECS_SERVICE: ${{ vars.ECS_SERVICE || 'mapapp-rails' }}
+  TASK_DEFINITION: ${{ vars.TASK_DEFINITION || 'mapapp-rails' }}
+  CONTAINER_NAME: ${{ vars.CONTAINER_NAME || 'rails' }}
+  ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY || 'mapapp-rails' }}
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'develop')
-    environment: ${{ github.ref == 'refs/heads/main' && 'prd' || 'dev' }}
+    if: github.event_name == 'workflow_dispatch' || (github.event.pull_request.merged == true)
+    environment: dev
 
     steps:
       - name: Checkout
@@ -35,7 +42,7 @@ jobs:
         run: |
           ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
           echo "registry=${ACCOUNT_ID}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com" >> "$GITHUB_OUTPUT"
-          echo "repository=${{ vars.ECR_REPOSITORY }}" >> "$GITHUB_OUTPUT"
+          echo "repository=${{ env.ECR_REPOSITORY }}" >> "$GITHUB_OUTPUT"
 
       - name: Login to Amazon ECR
         env:
@@ -64,7 +71,7 @@ jobs:
       - name: Download current task definition
         run: |
           aws ecs describe-task-definition \
-            --task-definition mapapp-rails \
+            --task-definition ${{ env.TASK_DEFINITION }} \
             --query taskDefinition > task-definition.json
 
       - name: Clean task definition
@@ -77,21 +84,21 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: task-definition.json
-          container-name: rails
+          container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.meta.outputs.tags }}
 
       - name: Deploy to ECS service
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.render-task-def.outputs.task-definition }}
-          service: mapapp-rails
-          cluster: mapapp-ecs
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
 
       - name: Output deployment summary
         run: |
           echo "## 🚀 Deployed to ECS Dev" >> $GITHUB_STEP_SUMMARY
-          echo "**Cluster:** mapapp-ecs" >> $GITHUB_STEP_SUMMARY
-          echo "**Service:** mapapp-rails" >> $GITHUB_STEP_SUMMARY
+          echo "**Cluster:** ${{ env.ECS_CLUSTER }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Service:** ${{ env.ECS_SERVICE }}" >> $GITHUB_STEP_SUMMARY
           echo "**Image:** ${{ steps.meta.outputs.tags }}" >> $GITHUB_STEP_SUMMARY
           echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
