@@ -121,6 +121,7 @@ module "security" {
 
   name_prefix           = local.name_prefix
   vpc_id                = module.vpc.vpc_id
+  vpc_cidr              = var.vpc_cidr
   allowed_ingress_cidrs = var.allowed_ingress_cidrs
   tags                  = local.tags
 }
@@ -196,6 +197,7 @@ module "ecs_service" {
   ecr_repository_url    = module.ecr.repository_url
   rds_address           = module.rds.rds_address
   db_username           = var.db_username
+  db_name               = var.db_name
   db_password           = data.aws_ssm_parameter.db_password.value
   redis_url             = module.redis.redis_url
   tags                  = local.tags

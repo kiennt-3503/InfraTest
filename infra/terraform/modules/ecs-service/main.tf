@@ -42,7 +42,7 @@ resource "aws_ecs_task_definition" "rails" {
         { name = "RELEASE_STAGE", value = var.release_stage },
         
         # Database Configuration
-        { name = "DATABASE_URL", value = "postgresql://${var.db_username}:${var.db_password}@${var.rds_address}:5432/mapapp_production" },
+        { name = "DATABASE_URL", value = "postgresql://${var.db_username}:${var.db_password}@${var.rds_address}:5432/${var.db_name}" },
         { name = "DATABASE_HOST", value = var.rds_address },
         { name = "DATABASE_USERNAME", value = var.db_username },
         { name = "DATABASE_PASSWORD", value = var.db_password },

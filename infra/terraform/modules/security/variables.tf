@@ -8,6 +8,11 @@ variable "vpc_id" {
   type        = string
 }
 
+variable "vpc_cidr" {
+  description = "VPC CIDR block"
+  type        = string
+}
+
 variable "allowed_ingress_cidrs" {
   description = "CIDR blocks allowed to access ALB"
   type        = list(string)
