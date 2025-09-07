@@ -108,6 +108,10 @@ module "vpc" {
   app_subnet_cidrs    = var.app_subnet_cidrs
   db_subnet_cidrs     = var.db_subnet_cidrs
   azs                 = var.azs
+  
+  # Adminer security (removed admin_allowed_cidrs - using Session Manager)
+  adminer_allowed_cidrs = var.adminer_allowed_cidrs
+  
   tags                = local.tags
 }
 

@@ -32,4 +32,10 @@ variable "tags" {
   description = "Tags to apply to resources"
   type        = map(string)
   default     = {}
-} 
+}
+
+variable "adminer_allowed_cidrs" {
+  description = "CIDR blocks allowed to access Adminer web interface"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]  # Change this to your office IP for security
+}

@@ -99,3 +99,9 @@ variable "image_tag" {
   type        = string
   default     = "latest"
 }
+
+variable "adminer_allowed_cidrs" {
+  description = "CIDR blocks allowed to access Adminer web interface"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
